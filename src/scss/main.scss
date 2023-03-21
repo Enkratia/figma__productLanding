@@ -1,3 +1,30 @@
-div {
-  color: #ccc;
-}
+@forward "./settings";
+@forward "./vars";
+
+// Vendor
+@forward "./vendor/graph-modal.min.css";
+@forward "./vendor/swiper-bundle.min.css";
+
+@use "./vendor/simplebar.css";
+
+// Big components
+@forward "./components/header";
+@forward "./components/hero";
+@forward "./components/catalog";
+@forward "./components/about";
+@forward "./components/quiz";
+@forward "./components/team";
+@forward "./components/faq";
+@forward "./components/contacts";
+@forward "./components/instagram";
+@forward "./components/footer";
+@forward "./components/prod-modal";
+@forward "./components/cart-modal";
+
+// Small components
+@forward "./components/nav";
+@forward "./components/cart";
+@forward "./components/logo";
+@forward "./components/product";
+@forward "./components/sizes";
+@forward "./components/social";

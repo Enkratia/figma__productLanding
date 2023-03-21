@@ -1,0 +1,44 @@
+@use "../mixins" as *;
+
+.social {
+  display: flex;
+
+  &__item {
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
+  }
+
+  &__link {
+    display: block;
+    outline: none;
+    width: 44px;
+    height: 44px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transition: opacity 0.3s;
+
+    &--vk {
+      background-image: url("../img/vk.svg");
+    }
+
+    &--insta {
+      background-image: url("../img/insta.svg");
+    }
+
+    &:focus {
+      opacity: 0.7;
+    }
+
+    @include desktop {
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+
+    &:active {
+      opacity: 0.9;
+    }
+  }
+}

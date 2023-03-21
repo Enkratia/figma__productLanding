@@ -1,0 +1,28 @@
+.sizes-table {
+  margin-bottom: var(--second-offset);
+  border-collapse: collapse;
+  border-radius: 4px;
+  width: 100%;
+
+  caption {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  tr {
+    border-spacing: 0;
+  }
+
+  td {
+    border: 1px solid var(--color-cameo);
+    padding: 17px 5px;
+    font: var(--middle-book);
+    text-align: center;
+    color: var(--color-main);
+  }
+
+  td:first-child {
+    border-top-left-radius: 4px;
+  }
+}

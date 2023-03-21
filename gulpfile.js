@@ -6,10 +6,10 @@ const del = require('del');
 const browserSync = require('browser-sync').create();
 const sass = require('sass');
 const gulpSass = require('gulp-sass');
-// const svgSprite = require('gulp-svg-sprite');
-// const svgmin = require('gulp-svgmin');
-// const cheerio = require('gulp-cheerio');
-// const replace = require('gulp-replace');
+const svgSprite = require('gulp-svg-sprite');
+const svgmin = require('gulp-svgmin');
+const cheerio = require('gulp-cheerio');
+const replace = require('gulp-replace');
 const fileInclude = require('gulp-file-include');
 const rev = require('gulp-rev');
 const revRewrite = require('gulp-rev-rewrite');
@@ -30,7 +30,7 @@ const rootFolder = path.basename(path.resolve());
 
 const gulp = require('gulp');
 
-// paths
+// Paths
 const srcFolder = './src';
 const buildFolder = './app';
 const paths = {
@@ -44,11 +44,12 @@ const paths = {
   srcFullJs: `${srcFolder}/js/**/*.js`,
   srcMainJs: `${srcFolder}/js/main.js`,
   buildJsFolder: `${buildFolder}/js`,
-  srcPartialsFolder: `${srcFolder}/html`,
+  srcPartialsFolder: `${srcFolder}/partials`,
   resourcesFolder: `${srcFolder}/resources`,
 };
 
-let isProd = false; // dev by default
+// Dev by default
+let isProd = false; 
 
 const clean = () => {
   return del([buildFolder])
@@ -60,40 +61,40 @@ const fonts = () => {
     .pipe(dest(paths.buildFontsFolder));
 };
 
-// svg sprite
-// const svgSprites = () => {
-//   return src(paths.srcSvg)
-//     .pipe(
-//       svgmin({
-//         js2svg: {
-//           pretty: true,
-//         },
-//       })
-//     )
-//     .pipe(
-//       cheerio({
-//         run: function ($) {
-//           $('[fill]').removeAttr('fill');
-//           $('[stroke]').removeAttr('stroke');
-//           $('[style]').removeAttr('style');
-//         },
-//         parserOptions: {
-//           xmlMode: true
-//         },
-//       })
-//     )
-//     .pipe(replace('&gt;', '>'))
-//     .pipe(svgSprite({
-//       mode: {
-//         stack: {
-//           sprite: "../sprite.svg"
-//         }
-//       },
-//     }))
-//     .pipe(dest(paths.buildImgFolder));
-// }
+// Svg sprite
+const svgSprites = () => {
+  return src(paths.srcSvg)
+    .pipe(
+      svgmin({
+        js2svg: {
+          pretty: true,
+        },
+      })
+    )
+    .pipe(
+      cheerio({
+        run: function ($) {
+          $('[fill]').removeAttr('fill');
+          $('[stroke]').removeAttr('stroke');
+          $('[style]').removeAttr('style');
+        },
+        parserOptions: {
+          xmlMode: true
+        },
+      })
+    )
+    .pipe(replace('&gt;', '>'))
+    .pipe(svgSprite({
+      mode: {
+        stack: {
+          sprite: "../sprite.svg"
+        }
+      },
+    }))
+    .pipe(dest(paths.buildImgFolder));
+}
 
-// scss styles
+// Scss styles
 const styles = () => {
   return src(paths.srcScss, { sourcemaps: !isProd })
     .pipe(plumber(
@@ -115,26 +116,9 @@ const styles = () => {
     .pipe(browserSync.stream());
 };
 
-// styles backend
-// const stylesBackend = () => {
-//   return src(paths.srcScss)
-//     .pipe(plumber(
-//       notify.onError({
-//         title: "SCSS",
-//         message: "Error: <%= error.message %>"
-//       })
-//     ))
-//     .pipe(mainSass())
-//     .pipe(autoprefixer({
-//       cascade: false,
-//       grid: true,
-//       overrideBrowserslist: ["last 5 versions"]
-//     }))
-//     .pipe(dest(paths.buildCssFolder))
-//     .pipe(browserSync.stream());
-// };
 
-// scripts
+
+// Scripts (js)
 const scripts = () => {
   return src(paths.srcMainJs)
     .pipe(plumber(
@@ -174,51 +158,14 @@ const scripts = () => {
     .pipe(browserSync.stream());
 }
 
-// scripts backend
-// const scriptsBackend = () => {
-//   return src(paths.srcMainJs)
-//     .pipe(plumber(
-//       notify.onError({
-//         title: "JS",
-//         message: "Error: <%= error.message %>"
-//       })
-//     ))
-//     .pipe(webpackStream({
-//       mode: 'development',
-//       output: {
-//         filename: 'main.js',
-//       },
-//       module: {
-//         rules: [{
-//           test: /\.m?js$/,
-//           exclude: /node_modules/,
-//           use: {
-//             loader: 'babel-loader',
-//             options: {
-//               presets: [
-//                 ['@babel/preset-env', {
-//                   targets: "defaults"
-//                 }]
-//               ]
-//             }
-//           }
-//         }]
-//       },
-//       devtool: false
-//     }))
-//     .on('error', function (err) {
-//       console.error('WEBPACK ERROR', err);
-//       this.emit('end');
-//     })
-//     .pipe(dest(paths.buildJsFolder))
-//     .pipe(browserSync.stream());
-// }
 
+// Resources
 const resources = () => {
   return src(`${paths.resourcesFolder}/**`)
     .pipe(dest(buildFolder))
 }
 
+// Images
 const images = () => {
   return src([`${paths.srcImgFolder}/**/**.{jpg,jpeg,png,svg}`])
     .pipe(gulpif(isProd, image([
@@ -233,12 +180,15 @@ const images = () => {
     .pipe(dest(paths.buildImgFolder))
 };
 
+
+// Webp
 const webpImages = () => {
   return src([`${paths.srcImgFolder}/**/**.{jpg,jpeg,png}`])
     .pipe(webp())
     .pipe(dest(paths.buildImgFolder))
 };
 
+// Html Includes
 const htmlInclude = () => {
   return src([`${srcFolder}/*.html`])
     .pipe(fileInclude({
@@ -252,6 +202,7 @@ const htmlInclude = () => {
     .pipe(browserSync.stream());
 }
 
+// Watch
 const watchFiles = () => {
   browserSync.init({
     server: {
@@ -267,9 +218,11 @@ const watchFiles = () => {
   watch(`${paths.srcImgFolder}/**/**.{jpg,jpeg,png,svg}`, images);
   watch(`${paths.srcImgFolder}/**/**.{jpg,jpeg,png}`, webpImages);
   watch(`${paths.srcFontsFolder}/**.{woff2}`, fonts);
-  // watch(paths.srcSvg, svgSprites);
+  watch(paths.srcSvg, svgSprites);
 }
 
+
+// Cache
 const cache = () => {
   return src(`${buildFolder}/**/*.{css,js,svg,png,jpg,jpeg,webp,woff2}`, {
       base: buildFolder
@@ -321,7 +274,8 @@ const toProd = (done) => {
   done();
 };
 
-exports.default = series(clean, htmlInclude, scripts, styles, resources, fonts, images, webpImages, watchFiles);
+
+exports.default = series(clean, htmlInclude, scripts, styles, resources, fonts, images, webpImages, svgSprites, watchFiles);
 
 // exports.backend = series(clean, htmlInclude, scriptsBackend, stylesBackend, resources, images, webpImages, svgSprites)
 
@@ -331,3 +285,65 @@ exports.build = series(toProd, clean, htmlInclude, scripts, styles, resources, f
 exports.cache = series(cache, rewrite);
 
 exports.zip = zipFiles;
+
+
+
+
+// scripts backend
+// const scriptsBackend = () => {
+//   return src(paths.srcMainJs)
+//     .pipe(plumber(
+//       notify.onError({
+//         title: "JS",
+//         message: "Error: <%= error.message %>"
+//       })
+//     ))
+//     .pipe(webpackStream({
+//       mode: 'development',
+//       output: {
+//         filename: 'main.js',
+//       },
+//       module: {
+//         rules: [{
+//           test: /\.m?js$/,
+//           exclude: /node_modules/,
+//           use: {
+//             loader: 'babel-loader',
+//             options: {
+//               presets: [
+//                 ['@babel/preset-env', {
+//                   targets: "defaults"
+//                 }]
+//               ]
+//             }
+//           }
+//         }]
+//       },
+//       devtool: false
+//     }))
+//     .on('error', function (err) {
+//       console.error('WEBPACK ERROR', err);
+//       this.emit('end');
+//     })
+//     .pipe(dest(paths.buildJsFolder))
+//     .pipe(browserSync.stream());
+// }
+
+// styles backend
+// const stylesBackend = () => {
+//   return src(paths.srcScss)
+//     .pipe(plumber(
+//       notify.onError({
+//         title: "SCSS",
+//         message: "Error: <%= error.message %>"
+//       })
+//     ))
+//     .pipe(mainSass())
+//     .pipe(autoprefixer({
+//       cascade: false,
+//       grid: true,
+//       overrideBrowserslist: ["last 5 versions"]
+//     }))
+//     .pipe(dest(paths.buildCssFolder))
+//     .pipe(browserSync.stream());
+// };

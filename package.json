@@ -43,7 +43,7 @@
     "gulp-webp": "^4.0.1",
     "gulp-zip": "^5.1.0",
     "imagemin-gifsicle": "^7.0.0",
-    "node-w3c-validator": "^2.0.1",
+    "node-w3c-validator": "^2.0.2",
     "optipng": "^4.2.0",
     "postcss": "^8.4.5",
     "postcss-scss": "^4.0.2",
@@ -63,10 +63,12 @@
   "dependencies": {
     "@popperjs/core": "^2.11.2",
     "aos": "^2.3.4",
+    "focus-visible": "^5.2.0",
     "graph-modal": "^1.0.4",
     "graph-tabs": "^1.0.0",
     "inputmask": "^5.0.7",
     "just-validate": "^3.3.3",
+    "nouislider": "^15.7.0",
     "rellax": "^1.12.1",
     "resize-observer-polyfill": "^1.5.1",
     "simplebar": "^5.3.9",
@@ -75,5 +77,13 @@
     "swiper": "^7.4.1"
   },
   "keywords": [],
-  "author": ""
+  "author": "Hello",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Enkratia/figma__productLanding.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Enkratia/figma__productLanding/issues"
+  },
+  "homepage": "https://github.com/Enkratia/figma__productLanding#readme"
 }

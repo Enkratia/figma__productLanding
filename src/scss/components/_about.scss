@@ -1,0 +1,109 @@
+@use "../mixins" as *;
+
+.about {
+  position: relative;
+  overflow: hidden;
+  height: 580px;
+  background-color: var(--color-eastbay);
+
+  &__container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  &__figure {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  &__text {
+    width: 33%;
+    transform: translateY(70px);
+
+    @include small-tablet {
+      width: 100%;
+      transform: none;
+    }
+  }
+
+  &__title {
+    margin-bottom: var(--second-offset);
+    color: var(--color-white);
+  }
+
+  &__descr {
+    font: var(--middle-book);
+    color: var(--color-white);
+  }
+
+  &__quote {
+    display: block;
+    margin-bottom: var(--second-offset);
+    font: inherit;
+
+    &::before,
+    &::after {
+      display: none;
+    }
+  }
+
+  &__author {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font: var(--prehigh-regular);
+    font-style: normal;
+    transform: translateX(50px);
+
+    &::before {
+      content: "";
+      display: inline-block;
+      margin-right: var(--second-offset);
+      width: 30px;
+      height: 3px;
+      background-color: var(--color-white);
+    }
+
+    @include small-tablet {
+      transform: none;
+    }
+  }
+
+  &__image {
+    position: absolute;
+    right: 100px;
+    top: -150px;
+    flex-shrink: 0;
+    overflow: hidden;
+    width: 500px;
+    height: 950px;
+    transform: rotate(15deg);
+
+    img {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 150%;
+      height: 100%;
+      max-width: none;
+      object-fit: cover;
+      transform: rotate(-15deg) translateX(-50%);
+    }
+
+    @include tablet {
+      right: -100px;
+    }
+
+    @include small-tablet {
+      display: none;
+    }
+  }
+
+  @include small-tablet {
+    padding: 50px 0;
+    height: auto;
+  }
+}

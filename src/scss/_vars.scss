@@ -1,0 +1,49 @@
+@use "./mixins" as *;
+
+:root {
+  // Colors
+  --color-white: #fff;
+  --color-black: #000;
+  --color-eastbay: #484283;
+  --color-main: #444b58;
+  --color-main-hover: #31343c;
+  --color-accent: #f14f4f;
+  --color-accent-hover: #cc4949;
+  --color-border: rgb(255 255 255 / 50%);
+  --color-bg: #fff4ee;
+  --color-cameo: #dbbba9;
+  --color-gray: #b2b5bb;
+  --color-jumbo: #808080;
+  --color-btn-active: #8c2828;
+
+  // Offsets
+  --grid-gap: 20px;
+  --big-offset: 60px;
+  --main-offset: 40px;
+  --second-offset: 20px;
+  --small-offset: 10px;
+
+  // Fonts
+  --font-family: "Intro", sans-serif;
+
+  // Typography
+  --middle-high-bold: 700 30px / 140% var(--font-family);
+  --prehigh-book: 400 24px / 24px var(--font-family);
+  --prehigh-regular: 600 20px / 20px var(--font-family);
+  --middle-book: 400 16px / 140% var(--font-family);
+  --middle-regular: 600 16px / 140% var(--font-family);
+  --small-book: 400 14px / 140% var(--font-family);
+
+  // Other
+  --paddings: 15px;
+}
+
+@include mobile {
+  :root {
+    --grid-gap: 10px;
+    --big-offset: 20px;
+    --main-offset: 40px;
+    --second-offset: 8px;
+    --small-offset: 10px;
+  }
+}

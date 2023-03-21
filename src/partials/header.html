@@ -1,0 +1,89 @@
+<header class="header fix-block">
+  <div class="header__container container grid">
+    <div class="header__left">
+      <a class="logo header__logo">
+        SneakMax
+      </a>
+    </div>
+
+    <div class="header__right">
+      <nav class="nav header__nav">
+        <ul class="nav__list">
+          <li class="nav__item">
+            <a href="#" class="nav__link">
+              Каталог
+            </a>
+          </li>
+
+          <li class="nav__item">
+            <a href="#" class="nav__link">
+              О нас
+            </a>
+          </li>
+
+          <li class="nav__item">
+            <a href="#" class="nav__link">
+              Подбор товара
+            </a>
+          </li>
+
+          <li class="nav__item">
+            <a href="#" class="nav__link">
+              Наша команда
+            </a>
+          </li>
+
+          <li class="nav__item">
+            <a href="#" class="nav__link">
+              Доставка и оплата
+            </a>
+          </li>
+
+          <li class="nav__item">
+            <a href="#" class="nav__link">
+              Контакты
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <button class="burger">
+        <span class="burger__line"></span>
+      </button>
+
+      <div class="cart header__cart">
+        <button class="cart__btn cart__btn--inactive">
+          <svg xmlns='http://www.w3.org/2000/svg'>
+            <use href='./img/sprite.svg#cart'></use>
+          </svg>
+
+          <div class="cart__count">
+            1
+          </div>
+        </button>
+
+        <div class="mini-cart">
+          <div class="mini-cart__top" data-simplebar>
+            <ul class="mini-cart__list"></ul>
+          </div>
+
+          <div class="mini-cart__bottom">
+            <div class="mini-cart__itog">
+              <span class="mini-cart__txt">
+                Итого
+              </span>
+
+              <span class="mini-cart__summ">
+                0 р
+              </span>
+            </div>
+
+            <button class="btn btn--primary mini-cart__btn" data-graph-path="cart-modal">
+              Перейти в корзину
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

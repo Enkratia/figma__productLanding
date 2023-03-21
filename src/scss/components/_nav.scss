@@ -1,0 +1,53 @@
+
+@use "./mixins" as *;
+
+.nav {
+  &__list {
+    display: flex;
+    align-self: center;
+  }
+
+  &__item {
+    &:not(:last-child) {
+      margin-right: var(--main-offset);
+    }
+  }
+
+  &__link {
+    position: relative;
+    font: var(--small-book);
+    color: var(--color-white);
+    transition: opacity 0.3s;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 1px;
+      background-color: currentcolor;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    &:focus {
+      &::before {
+        transform: scaleX(1);
+      }
+    }
+
+    &:active {
+      opacity: 0.8;
+    }
+
+    @include desktop {
+      &:hover {
+        &::before {
+          transform: scaleX(1);
+        }
+      }
+    }
+  }
+}

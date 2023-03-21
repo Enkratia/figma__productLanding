@@ -1,0 +1,70 @@
+@use "../mixins" as *;
+
+.header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  background-color: var(--color-eastbay);
+
+  &__container {
+    position: relative;
+    align-items: center;
+    padding: var(--second-offset) var(--paddings);
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: calc(100% - var(--paddings) * 2);
+      height: 1px;
+      background-color: var(--color-border);
+      transform: translateX(-50%);
+    }
+  }
+
+  &__left {
+    grid-column: 2 span;
+  }
+
+  &__right {
+    display: flex;
+    justify-content: flex-end;
+    grid-column: 10 span;
+
+    @include tablet {
+      align-items: center;
+    }
+
+    @include mobile {
+      grid-column: 2 span;
+    }
+  }
+
+  &__nav {
+    @include tablet {
+      display: none;
+    }
+
+    &--active {
+      display: block;
+    }
+  }
+}
+
+.burger {
+  --burger-width: 24px;
+  --burger-height: 18px;
+  --burger-line-height: 3px;
+
+  @include burger;
+
+  display: none;
+  color: var(--color-white);
+
+  @include tablet {
+    display: block;
+  }
+}
